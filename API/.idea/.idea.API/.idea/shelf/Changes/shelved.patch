@@ -1,0 +1,170 @@
+Index: .idea/.idea.API/.idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.idea.API/.idea/.gitignore b/.idea/.idea.API/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1725919959664)
++++ b/.idea/.idea.API/.idea/.gitignore	(date 1725919959664)
+@@ -0,0 +1,13 @@
++# Default ignored files
++/shelf/
++/workspace.xml
++# Rider ignored files
++/modules.xml
++/.idea.API.iml
++/contentModel.xml
++/projectSettingsUpdater.xml
++# Editor-based HTTP Client requests
++/httpRequests/
++# Datasource local storage ignored files
++/dataSources/
++/dataSources.local.xml
+Index: API/Program.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>//Minimal APIs em C# \r\n//Testar a API\r\n// - Rest Client - Extensão VSCode\r\n// - Postman**\r\n// - Insomnia**\r\nvar builder = WebApplication.CreateBuilder(args);\r\nvar app = builder.Build();\r\n\r\n//Endpoints - Funcionalidades\r\n//Requisição - URL e método/verbo HTTP\r\napp.MapGet(\"/\", () => \"Mestre\");\r\napp.MapGet(\"/mom\", () => \"Hi mom!\");\r\napp.MapGet(\"/vampeta\", () => \"https://assets.portalleodias.com/2024/04/vampetasso-a-trolagem-brasileira-contra-o-preconceito-sofrido-por-vin.webp\");\r\n\r\n//Exercícios para próxima aula\r\n// - Criar um endpoint para receber informação pela URL\r\n\r\n//dotnet run --project API\r\napp.Run();\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/API/Program.cs b/API/Program.cs
+--- a/API/Program.cs	(revision 46c6fcec0079e6574325a0602b0b51b3d4ad15e3)
++++ b/API/Program.cs	(date 1725928952638)
+@@ -3,17 +3,50 @@
+ // - Rest Client - Extensão VSCode
+ // - Postman**
+ // - Insomnia**
++
++using API.Models;
++
+ var builder = WebApplication.CreateBuilder(args);
+ var app = builder.Build();
+ 
++List<Produto> produtos = new List<Produto>()
++{
++    new Produto { Nome = "Teclado", Quantidade = 50, Valor = 99.90 },
++    new Produto { Nome = "Mouse", Quantidade = 120, Valor = 49.90 },
++    new Produto { Nome = "Monitor", Quantidade = 30, Valor = 799.90 },
++    new Produto { Nome = "Notebook", Quantidade = 10, Valor = 3999.90 },
++    new Produto { Nome = "Cadeira Gamer", Quantidade = 15, Valor = 899.90 },
++    new Produto { Nome = "Fone de Ouvido", Quantidade = 200, Valor = 199.90 },
++    new Produto { Nome = "Mousepad", Quantidade = 80, Valor = 29.90 },
++    new Produto { Nome = "Webcam", Quantidade = 40, Valor = 159.90 },
++    new Produto { Nome = "Impressora", Quantidade = 25, Valor = 499.90 },
++    new Produto { Nome = "Pendrive", Quantidade = 300, Valor = 19.90 }
++};
++
+ //Endpoints - Funcionalidades
+ //Requisição - URL e método/verbo HTTP
+ app.MapGet("/", () => "Mestre");
+ app.MapGet("/mom", () => "Hi mom!");
+ app.MapGet("/vampeta", () => "https://assets.portalleodias.com/2024/04/vampetasso-a-trolagem-brasileira-contra-o-preconceito-sofrido-por-vin.webp");
++//GET: /api/produto/listar
++app.MapGet("/api/produto/listar", () =>
++{
++    return produtos;
++});
++//POST: /api/produto/cadastrar/param_nome
++app.MapPost("/api/produto/cadastrar/{nome}", (string nome) =>
++{
++    Produto produto = new Produto();
++    produto.Nome = nome;
++    produtos.Add(produto);
++    return produtos;
++});
+ 
+ //Exercícios para próxima aula
+ // - Criar um endpoint para receber informação pela URL
++app.MapGet("/saudacao/{nome}", (string nome) => $"Olá, {nome}!");
++// - Criar um endpoint para receber informação pelo corpo
+ 
+ //dotnet run --project API
+-app.Run();
++Produto produto = new Produto();
++app.Run();
+\ No newline at end of file
+Index: .idea/.idea.API/.idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.idea.API/.idea/vcs.xml b/.idea/.idea.API/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1725919980453)
++++ b/.idea/.idea.API/.idea/vcs.xml	(date 1725919980453)
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: API/Models/Produto.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/API/Models/Produto.cs b/API/Models/Produto.cs
+new file mode 100644
+--- /dev/null	(date 1725925798822)
++++ b/API/Models/Produto.cs	(date 1725925798822)
+@@ -0,0 +1,19 @@
++namespace API.Models;
++
++public class Produto
++{
++    //C# - Construtor
++    public Produto()
++    {
++        Id = Guid.NewGuid().ToString();
++        CriadoEm = DateTime.Now;
++    }
++    
++    //C# - Atributos/Propriedades - Caracteristicas
++    public string? Id { get; set; }
++    public string? Nome { get; set; }
++    public double Valor { get; set; }
++    public int Quantidade { get; set; }
++    public DateTime CriadoEm { get; set; }
++
++}
+\ No newline at end of file
+Index: .idea/.idea.API/.idea/encodings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.idea.API/.idea/encodings.xml b/.idea/.idea.API/.idea/encodings.xml
+new file mode 100644
+--- /dev/null	(date 1725919950530)
++++ b/.idea/.idea.API/.idea/encodings.xml	(date 1725919950530)
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="Encoding" addBOMForNewFiles="with BOM under Windows, with no BOM otherwise" />
++</project>
+\ No newline at end of file
+Index: .idea/.idea.API/.idea/indexLayout.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.idea.API/.idea/indexLayout.xml b/.idea/.idea.API/.idea/indexLayout.xml
+new file mode 100644
+--- /dev/null	(date 1725919953514)
++++ b/.idea/.idea.API/.idea/indexLayout.xml	(date 1725919953514)
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="UserContentModel">
++    <attachedFolders>
++      <Path>../../Teste-CAfiado</Path>
++    </attachedFolders>
++    <explicitIncludes />
++    <explicitExcludes />
++  </component>
++</project>
+\ No newline at end of file

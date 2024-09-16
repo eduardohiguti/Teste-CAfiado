@@ -1,8 +1,5 @@
 ### Requisição para a raiz da aplicação
 GET http://localhost:5172/
 
-### Requisição para a mãe
-GET http://localhost:5172/mom
-
-### Requisição para o Vampeta
-GET http://localhost:5172/vampeta
+### Cadastrar produto
+POST http://localhost:5172/api/produtos/cadastrar/mouse

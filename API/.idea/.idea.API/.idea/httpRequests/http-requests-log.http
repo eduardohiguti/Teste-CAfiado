@@ -1,0 +1,18 @@
+POST http://localhost:5172/api/produtos/cadastrar/mouse
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+###
+
+GET http://localhost:5172
+User-Agent: IntelliJ HTTP Client/JetBrains Rider 2024.2.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+<> 2024-09-16T194136.200.txt
+
+###
+
